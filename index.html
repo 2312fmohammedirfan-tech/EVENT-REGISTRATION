@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registration System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar glass-nav">
+        <div class="nav-brand">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradient)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="var(--primary-color)" />
+                        <stop offset="100%" stop-color="#8e2de2" />
+                    </linearGradient>
+                </defs>
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+            <h1>EventPlatform</h1>
+        </div>
+        <div class="nav-controls">
+            <button id="themeToggle" class="btn-icon" aria-label="Toggle Dark Mode">🌙</button>
+            <button id="loginBtn" class="btn-outline">Organizer Login</button>
+            <button id="logoutBtn" class="btn-outline hidden">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Public View -->
+    <main id="publicView" class="container fade-in">
+        <section class="search-section glass">
+            <div class="search-wrapper">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchBar" placeholder="Search events by name...">
+            </div>
+            <select id="categoryFilter">
+                <option value="All">All Categories</option>
+                <option value="Tech">Tech</option>
+                <option value="Business">Business</option>
+                <option value="Design">Design</option>
+                <option value="Music">Music</option>
+            </select>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">Available Events</h2>
+            <div id="eventList" class="grid"></div>
+        </section>
+
+        <section class="section-block">
+            <h2 class="section-title">My Registrations</h2>
+            <div id="registrationList" class="grid"></div>
+        </section>
+    </main>
+
+    <!-- Organizer Dashboard -->
+    <main id="organizerView" class="container hidden fade-in">
+        <div class="dashboard-header">
+            <h2>Organizer Dashboard</h2>
+            <button id="exportCsvBtn" class="btn-primary">
+                <span>📥</span> Export Registrations (CSV)
+            </button>
+        </div>
+
+        <section class="card glass form-card">
+            <h3 id="formTitle">Create New Event</h3>
+            <form id="eventForm">
+                <input type="hidden" id="editEventId">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="eventName">Event Name</label>
+                        <input type="text" id="eventName" placeholder="e.g. AI Conference 2024" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventCategory">Category</label>
+                        <select id="eventCategory" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="Tech">Tech</option>
+                            <option value="Business">Business</option>
+                            <option value="Design">Design</option>
+                            <option value="Music">Music</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="eventDate">Event Date</label>
+                    <input type="date" id="eventDate" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn-primary" id="saveEventBtn">Add Event</button>
+                    <button type="button" class="btn-secondary hidden" id="cancelEditBtn">Cancel</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="section-block">
+            <h3 class="section-title">Manage Events</h3>
+            <div id="manageEventList" class="grid"></div>
+        </section>
+    </main>
+
+    <!-- Registration Modal -->
+    <div id="registrationModal" class="modal hidden">
+        <div class="modal-content glass animate-pop">
+            <button class="close-modal-icon" id="closeModalIcon">&times;</button>
+            <div class="modal-header">
+                <h3>Register for Event</h3>
+                <p id="modalEventName" class="highlight-text"></p>
+            </div>
+            <form id="registrationForm">
+                <input type="hidden" id="registerEventId">
+                <div class="form-group">
+                    <input type="text" id="regName" placeholder="Your Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="regEmail" placeholder="Your Email Address" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="closeModalBtn" class="btn-outline">Cancel</button>
+                    <button type="submit" class="btn-primary">Confirm Registration</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal hidden">
+        <div class="modal-content glass animate-pop">
+            <div class="modal-header">
+                <h3>Organizer Login</h3>
+                <p class="hint-text">Hint: Use <strong>admin123</strong> to login</p>
+            </div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <input type="password" id="loginPassword" placeholder="Enter Password" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" id="closeLoginBtn" class="btn-outline">Cancel</button>
+                    <button type="submit" class="btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
